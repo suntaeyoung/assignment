@@ -1,55 +1,33 @@
 // 1. 자바스크립트 함수 연습 - 객체의 복사
 
-// cloneDeep 함수를 라이브러리 없이 구현해보세요.
-// 깊은 복사
-const obj = {
-  x : 1,
-  y : {
-    z : 2,
-  },
-};
-
-function copyObjDeep(obj) {
-  const result = {};
-
-  for(let key in obj){
-    if(typeof obj[key] === 'object'){
-      result[key] = copyObjDeep(obj[key]);
-    }else {
-      result[key] = obj[key];
-    }
+function deepClone(obj) {
+  if (typeof obj !== 'object') {
+    // 기본 자료형인 경우 그대로 반환
+    return obj;
   }
-  return result;
+
+  if (Array.isArray(obj)) {
+    // 배열인 경우 map 활용
+    return obj.map(deepClone);
+  }
+
+  // 객체인 경우 reduce 활용
+  return Object.keys(obj).reduce((acc, cur) => {
+    acc[cur] = deepClone(obj[cur]);
+    return acc;
+  }, {});
 }
 
-const copyDeep = copyObjDeep(obj);
+const originalObject = {
+  x: 1,
+  y: {
+    z:2,
+  }
+};
 
-copyDeep.y.z = 3;
+const clonedObject = deepClone(originalObject);
 
-console.log(obj);
-console.log(copyDeep);
-console.log(obj.y.z === copyDeep.y.z);
+clonedObject.y.z = 3;
 
-
-
-
-// 기본 복사
-// const a = { x : 1};
-// const b = a;
-
-// b.x = 2;
-
-// console.log(a);
-// console.log(b);
-
-// 얕은 복사
-// const c = { x : 1};
-// const d = { ...c };
-
-// d.x = 3;
-
-// console.log(c);
-// console.log(d);
-
-
-
+console.log(originalObject);
+console.log(clonedObject);
