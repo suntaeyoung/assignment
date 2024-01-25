@@ -11,13 +11,17 @@ function memoize(func) {
 }
 
 const slowFunction = (n) => {
-  let result = 0;
+  //let result = 0;
 
-  for(let i = 1; i <= n; i++) {
-    for(let j = 1; j <= n; j++) {
-      result += 1;
-    }
-  }
+  // for(let i = 1; i <= n; i++) {
+  //   for(let j = 1; j <= n; j++) {
+  //     result += 1;
+  //   }
+  // }
+  const result = Array(n).fill(0).reduce((acc) => 
+    acc + Array(n).fill(0).reduce((rowAcc) => 
+    rowAcc + 1, 0),
+  0);
 
   return result;
 }
