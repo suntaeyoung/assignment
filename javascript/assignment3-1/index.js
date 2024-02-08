@@ -6,6 +6,7 @@ function useState(curValue) {
   const setState = (newValue) => {
     state = newValue;
     console.log("새로운 값: ", state);
+    count = state;
   }
 
   return [state, setState];
@@ -13,8 +14,10 @@ function useState(curValue) {
 }
 
 // useState 함수의 리턴 값을 [count, setCount]에 저장
-const [count, setCount] = useState(0);
-console.log("현재 값: ", count);
+const [curCount, setCount] = useState(0);
+let count = curCount;
 
+console.log("현재 값: ", count);
 setCount(1);
 setCount(10);
+console.log("현재 값: ", count);
