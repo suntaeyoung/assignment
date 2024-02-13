@@ -72,7 +72,6 @@ $cbMacro.classList.add('macro');
 $cbMacro.appendChild($cbMacroVl);
 $cbMacroVl.setAttribute('id', 'cbMacroValue');
 
-
 // 옵션 이름 배열
 const optionNames = ['선택하세요', '일반함수', '비동기함수', '비동기함수(web-api)'];
 const selectedValues = []; // 선택한 값을 저장할 배열
