@@ -15,7 +15,7 @@ const mainPage = new routes["/"]();
 $app.innerHTML = mainPage.template();
 
 // 주소 바뀌고 페이지 갈아끼워주는 함수
-const changUrl = (requestUrl) => {
+const changeUrl = (requestUrl) => {
   history.pushState(null, null, requestUrl);
 
   const checkPage = new routes[requestUrl]();
@@ -25,12 +25,12 @@ const changUrl = (requestUrl) => {
 // 클릭했을때 changUrl 함수 호출
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains("goToFirst")) {
-    changUrl("/");
+    changeUrl("/");
   }
   if (event.target.classList.contains("goToSecond")) {
-    changUrl("/second");
+    changeUrl("/second");
   }
   if (event.target.classList.contains("goToThird")) {
-    changUrl("/third");
+    changeUrl("/third");
   }
 })
