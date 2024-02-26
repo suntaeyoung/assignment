@@ -1,36 +1,22 @@
-import FirstPage from "./src/pages/FirstPage.js";
-import SecondPage from "./src/pages/SecondPage.js";
-import ThirdPage from "./src/pages/ThirdPage.js";
+import createRouter from "./router.js";
+import firstPage from "./src/pages/FirstPage.js";
+import secondPage from "./src/pages/SecondPage.js";
+import thirdPage from "./src/pages/ThirdPage.js";
 
-const $app = document.querySelector('#App');
+const container = document.getElementById("root");
+const router = createRouter();
 
-const routes = {
-  "/": FirstPage,
-  "/second": SecondPage,
-  "/third": ThirdPage
-}
+const pages = {
+  "/": () => container.innerHTML = firstPage(),
+  "/second": () => container.innerHTML = secondPage(),
+  "/third": () => container.innerHTML = thirdPage(),
+};
 
-// 초기 화면 첫번째 페이지로 설정
-const mainPage = new routes["/"]();
-$app.innerHTML = mainPage.template();
+router.addRoute("/", pages["/"]).addRoute("/second", pages["/second"]).addRoute("/third", pages["/third"]).start();
 
-// 주소 바뀌고 페이지 갈아끼워주는 함수
-const changeUrl = (requestUrl) => {
-  history.pushState(null, null, requestUrl);
-
-  const checkPage = new routes[requestUrl]();
-  $app.innerHTML = checkPage.template();
-}
-
-// 클릭했을때 changUrl 함수 호출
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains("goToFirst")) {
-    changeUrl("/");
+window.addEventListener("click", (event) => {
+  if (event.target.matches("[data-navigate]")) {
+    router.navigate(event.target.dataset.navigate);
   }
-  if (event.target.classList.contains("goToSecond")) {
-    changeUrl("/second");
-  }
-  if (event.target.classList.contains("goToThird")) {
-    changeUrl("/third");
-  }
-})
+});
+
