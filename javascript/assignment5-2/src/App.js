@@ -40,10 +40,13 @@ function addPages(pages) {
   }
 }
 
-// 페이지를 추가
-addPages(pages);
-// 라우터 시작
-router.start();
+export default function initializeApp() {
+  // 페이지를 추가
+  addPages(pages);
+  // 라우터 시작
+  router.start();
+}
+
 
 document.addEventListener("click", (event) => {
   // 만약 클릭된 요소가 reset 클래스를 가지고 있다면
